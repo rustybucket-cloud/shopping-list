@@ -22,6 +22,7 @@ let shoppingList = {
             shoppingList.calculatorFunction();
             let checkBox = document.createElement("input");
             let listItem = document.createElement("li");
+            listItem.setAttribute('data-list-item', itemInput);
             let label = document.createElement("label");
             label.setAttribute("for", itemInput);
             checkBox.setAttribute("type", "checkbox");
@@ -36,6 +37,10 @@ let shoppingList = {
             TOOLTIP.classList.add("tooltip");
             TOOLTIP.append(TOOLTIPTEXT);
             listItem.append(TOOLTIP);
+            TOOLTIP.setAttribute("data-list-item", itemInput);
+            TOOLTIP.addEventListener("click", (e) => {
+                shoppingList.deleteItem(e.currentTarget);
+            });
             //add an event listener to each new checkbox that calls crossOut
             //checkBox.addEventListener("click", shoppingList.crossOut());
             //create a object with the key being the user input, the id value being the length of the items object, and the crossed value being set to false
@@ -64,6 +69,7 @@ let shoppingList = {
         const UL = document.querySelector('#calculatorList');
         const LI = document.createElement('li');
         const LITEXT = document.createTextNode(document.querySelector('#newItem').value);
+        LI.setAttribute('data-list-item', document.querySelector('#newItem').value);
         LI.append(LITEXT);
         UL.prepend(LI);
         const AMOUNT = document.querySelector('#numList');
@@ -78,7 +84,9 @@ let shoppingList = {
         PRICE.prepend(ITEMPRICE);
         itemNumbers.setAttribute('data-input', 'amount');
         itemNumbers.setAttribute('data-name', document.querySelector('#newItem').value);
+        itemNumbers.setAttribute('data-list-item', document.querySelector('#newItem').value);
         ITEMPRICE.setAttribute('data-name', document.querySelector('#newItem').value);
+        ITEMPRICE.setAttribute('data-list-item', document.querySelector('#newItem').value);
         ITEMPRICE.setAttribute('data-input', 'price');
         itemNumbers.addEventListener("input", (e) => {
             let item = e.currentTarget;
@@ -94,7 +102,10 @@ let shoppingList = {
         let listId = item.id + "-text";
         document.querySelector(`#${listId}`).style.textDecoration = "line-through";
         shoppingList.items[item.id].crossed = true;
-        document.querySelectorAll('span.tooltip').style.textDecoration = "none";
+        const spans = document.querySelectorAll('.tooltip');
+        spans.forEach( (span) => {
+            span.style.textDecoration = "none";
+        });
     },
     notChecked(item) {
         let listId = item.id + "-text";
@@ -117,6 +128,26 @@ let shoppingList = {
             console.log(shoppingList.items[list].amount);
         }
         console.log(total);
+        if (!isNaN(total)) {
+            document.querySelector('#total').innerText = `Total: $${total.toFixed(2)}`;
+        } else {
+            document.querySelector('#total').innerText = `Total: $0`;
+        }
+    },
+    deleteItem(listItem) {
+        let name = listItem.dataset.listItem;
+        console.log(document.querySelector(`[data-list-item="${name}"]`).classList);
+        //document.querySelectorAll(`[data-list-item="${name}"`).remove();
+        //document.querySelector(`#${name}-text`).remove();
+        let items = document.querySelectorAll(`[data-list-item="${name}"`);
+        items.forEach( (itemList) => {
+            itemList.remove();
+        });
+        delete shoppingList.items[name];
+        let total = 0;
+        for (listItem in shoppingList.items) {
+            total += shoppingList.items[listItem].cost * shoppingList.items[listItem].amount;
+        }
         if (!isNaN(total)) {
             document.querySelector('#total').innerText = `Total: $${total.toFixed(2)}`;
         } else {
