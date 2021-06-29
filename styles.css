@@ -1,0 +1,147 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    color: #521D05;
+    font-family: Ubuntu, sans-serif;
+}
+ /*header styling*/
+header {
+    background-color: #5CFFEF;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+header h1, header p {
+    margin: 0 0 1rem 2vw;
+}
+
+/*nav styling*/
+nav {
+    background-color: #199E91;
+    height: 3rem;
+    margin: 0;
+}
+nav ul{
+    margin: 0;
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0;
+}
+nav li {
+    margin: 0 0 0 2vw;
+    padding: 0;
+}
+nav a {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    color: #521D05;
+    text-decoration: none;
+    padding: 1rem .2rem 1rem .2rem;
+}
+nav a:hover {
+    background-color: #521D05;
+    color: #199E91;
+}
+
+/*main styling*/
+main {
+    display: flex;
+    flex-direction: column;
+}
+h1 {
+    margin-left: 2vw;
+}
+#divs {
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 10%;
+}
+@media screen and (max-width: 900px) {
+    #divs {
+        display: flex;
+        flex-direction: column;
+    }
+    #calculator, #listDiv {
+        margin: 2vh 2vw;
+    }
+}
+h2 {
+    margin-left: 1vw;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+#listDiv {
+    display: flex;
+    flex-direction: column;
+    background-color: #199E90;
+    /*width: 75%;*/
+    height: 100%;
+    margin-left: 1vw;
+}
+#listDiv button {
+    height: 40px;
+}
+.tooltip {
+    background-color: #199E90;
+    color: #199E90;
+}
+.tooltip:hover {
+    display: inline;
+    background-color: black;
+    color: white;
+}
+li > input {
+    margin-left: 1vw;
+}
+#listDiv > label {
+    padding-left: 1vw;
+}
+#calculator {
+    background-color: #199E90;
+    margin-right: 2vw;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start
+}
+#calcListDiv {
+    display: flex;
+    justify-content: space-evenly;
+}
+#calcListDiv ul {
+    margin-right: 1vw;
+}
+#calcListDiv input {
+    width: 7rem;
+}
+#calcListDiv input:focus {
+    width: 7rem;
+}
+@media screen and (max-width: 600px) {
+    #calcListDiv input {
+        width: 3rem;
+    }
+    #divs {
+        column-gap: 5%;
+    }
+}
+#calculatorList {
+    margin-left: 2vw; 
+}
+#calculator ul {
+    display: flex;
+    flex-direction: column;
+}
+#calculator li {
+    list-style: none;
+    display: flex;
+    justify-content: space-evenly;
+}
+#calculatorList input {
+    width: 100%;
+}
